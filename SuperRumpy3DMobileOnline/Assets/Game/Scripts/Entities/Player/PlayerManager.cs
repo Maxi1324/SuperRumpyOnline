@@ -114,8 +114,9 @@ namespace Entity.Player
                 XAxis = PInfo.MobileControls1.Joystick.Horizontal;
                 YAxis = PInfo.MobileControls1.Joystick.Vertical;
                 Run = true;
-                JumpPressed = Input.GetButtonDown(PInfo.A + added);
-                Jump = true;
+                var button = PInfo.MobileControls1.ButtonsD["Jump"];
+                JumpPressed = button.ButtonDown;
+                Jump = button.Button;
                 Fire3Pressed = Input.GetButtonDown(PInfo.C + added);
                 Fire3 = Input.GetButton(PInfo.C + added);
                 Fire3Up = Input.GetButtonUp(PInfo.C + added);

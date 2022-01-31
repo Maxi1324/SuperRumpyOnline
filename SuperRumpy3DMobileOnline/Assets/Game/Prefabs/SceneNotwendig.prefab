@@ -4941,8 +4941,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8613056874454085595}
-  m_LocalRotation: {x: 0.13594654, y: -0.71005845, z: 0.14280087, w: 0.675976}
-  m_LocalPosition: {x: 9.473053, y: -5.036316, z: 0.09159851}
+  m_LocalRotation: {x: 0.15163268, y: 0.8482591, z: -0.36607367, w: 0.35136044}
+  m_LocalPosition: {x: -90.01877, y: 144.96344, z: 100.091446}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 432638515}
@@ -4974,7 +4974,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 400
-  field of view: 85
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -5154,6 +5154,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7297685466634403815}
     m_Modifications:
+    - target: {fileID: 8135886326569738820, guid: 56fae09712773584fb63896d473a98ee, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8135886326569738822, guid: 56fae09712773584fb63896d473a98ee, type: 3}
       propertyPath: m_Pivot.x
       value: 0

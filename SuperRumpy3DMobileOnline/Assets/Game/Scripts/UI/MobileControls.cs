@@ -18,19 +18,18 @@ public class MobileControls : MonoBehaviour
         Buttons.ForEach(b =>
         {
             ButtonCool BC1 = new ButtonCool(b.ETrigger);
-            Debug.Log(b.key+":jasd");
             ButtonsD.Add(b.key,BC1);
         });
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        foreach(KeyValuePair<string, ButtonCool> kvp in ButtonsD)
+        //Debug.Log($"Button: {ButtonsD["Jump"].Button} ButtonDown: {ButtonsD["Jump"].ButtonDown} ButtonUp: {ButtonsD["Jump"].ButtonUp}");
+
+        foreach (KeyValuePair<string, ButtonCool> kvp in ButtonsD)
         {
             kvp.Value.Update();
         }
-
-        Debug.Log($"Button: {ButtonsD["Jump"].Button} ButtonDown: {ButtonsD["Jump"].ButtonDown} ButtonUp: {ButtonsD["Jump"].ButtonUp}");
     }
 }
 [Serializable]
@@ -52,31 +51,27 @@ public class ButtonCool
     public ButtonCool(EventTrigger ET)
     {
         this.ET = ET;
-        EventTrigger trigger = null;
         EventTrigger.Entry entry = new EventTrigger.Entry();
-        entry.eventID = EventTriggerType.PointerDown;
-        entry.callback.AddListener((data) =>{
-            Down();
-        });
+        entry.eventID = EventTriggerType.PointerUp;
+        entry.callback.AddListener(Up);
+        ET.triggers.Add(entry);
 
         EventTrigger.Entry entry1 = new EventTrigger.Entry();
         entry1.eventID = EventTriggerType.PointerDown;
-        entry1.callback.AddListener((data) => {
-            Up();
-        });
-        trigger.triggers.Add(entry);
+        entry1.callback.AddListener(Down);
+        ET.triggers.Add(entry1);
     }
 
-    public void Up()
+    public void Up(BaseEventData data)
     {
         ButtonUp = true;
-        Button = true;
+        Button = false;
     }
 
-    public void Down()
+    public void Down(BaseEventData data)
     {
         ButtonDown = true;
-        Button = false;
+        Button = true;
     }
 
     public void Update()

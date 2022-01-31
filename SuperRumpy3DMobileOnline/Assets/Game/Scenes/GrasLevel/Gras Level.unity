@@ -1661,7 +1661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1354056052404445773, guid: 769d344db1b87c94f9323b31389297af, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.482677
+      value: 9.480053
       objectReference: {fileID: 0}
     - target: {fileID: 1354056052404445773, guid: 769d344db1b87c94f9323b31389297af, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1737,7 +1737,7 @@ PrefabInstance:
       objectReference: {fileID: 13400000, guid: 65cc9236eeaa83246af1351c461e80c6, type: 2}
     - target: {fileID: 1997004237281538814, guid: 769d344db1b87c94f9323b31389297af, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.482731
+      value: 9.479973
       objectReference: {fileID: 0}
     - target: {fileID: 1997004237281538814, guid: 769d344db1b87c94f9323b31389297af, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1805,11 +1805,11 @@ PrefabInstance:
       objectReference: {fileID: 13400000, guid: 65cc9236eeaa83246af1351c461e80c6, type: 2}
     - target: {fileID: 3894024053590955923, guid: 769d344db1b87c94f9323b31389297af, type: 3}
       propertyPath: field of view
-      value: 85
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3894024053590955923, guid: 769d344db1b87c94f9323b31389297af, type: 3}
       propertyPath: far clip plane
-      value: 400
+      value: 5000
       objectReference: {fileID: 0}
     - target: {fileID: 4871189117935464585, guid: 769d344db1b87c94f9323b31389297af, type: 3}
       propertyPath: m_IsActive
@@ -2129,31 +2129,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8307354414919393081, guid: 769d344db1b87c94f9323b31389297af, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.482677
+      value: -352.28424
       objectReference: {fileID: 0}
     - target: {fileID: 8307354414919393081, guid: 769d344db1b87c94f9323b31389297af, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.036318
+      value: -193.505
       objectReference: {fileID: 0}
     - target: {fileID: 8307354414919393081, guid: 769d344db1b87c94f9323b31389297af, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.09159279
+      value: -120.4309
       objectReference: {fileID: 0}
     - target: {fileID: 8307354414919393081, guid: 769d344db1b87c94f9323b31389297af, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.675976
+      value: -0.04050421
       objectReference: {fileID: 0}
     - target: {fileID: 8307354414919393081, guid: 769d344db1b87c94f9323b31389297af, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.13594654
+      value: -0.0077832155
       objectReference: {fileID: 0}
     - target: {fileID: 8307354414919393081, guid: 769d344db1b87c94f9323b31389297af, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.71005845
+      value: 0.9811981
       objectReference: {fileID: 0}
     - target: {fileID: 8307354414919393081, guid: 769d344db1b87c94f9323b31389297af, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.14280087
+      value: -0.18854523
+      objectReference: {fileID: 0}
+    - target: {fileID: 8448893347152150611, guid: 769d344db1b87c94f9323b31389297af, type: 3}
+      propertyPath: m_Delegates.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8521998324234302494, guid: 769d344db1b87c94f9323b31389297af, type: 3}
       propertyPath: m_IsActive
@@ -2171,6 +2175,18 @@ PrefabInstance:
       propertyPath: m_FollowOffset.z
       value: 1.7e-44
       objectReference: {fileID: 0}
+    - target: {fileID: 8682567484624466725, guid: 769d344db1b87c94f9323b31389297af, type: 3}
+      propertyPath: Buttons.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682567484624466725, guid: 769d344db1b87c94f9323b31389297af, type: 3}
+      propertyPath: Buttons.Array.data[1].key
+      value: Jump
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682567484624466725, guid: 769d344db1b87c94f9323b31389297af, type: 3}
+      propertyPath: Buttons.Array.data[1].ETrigger
+      value: 
+      objectReference: {fileID: 1639756408}
     - target: {fileID: 8740296092916084562, guid: 769d344db1b87c94f9323b31389297af, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -5155,6 +5171,17 @@ PrefabInstance:
     - {fileID: 86104447943480832, guid: 163f0d8f26b52f644b2a17bbd26c55c7, type: 3}
     - {fileID: 7687449033753163561, guid: 163f0d8f26b52f644b2a17bbd26c55c7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 163f0d8f26b52f644b2a17bbd26c55c7, type: 3}
+--- !u!114 &1639756408 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8448893347152150611, guid: 769d344db1b87c94f9323b31389297af, type: 3}
+  m_PrefabInstance: {fileID: 457579241}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1683214455
 PrefabInstance:
   m_ObjectHideFlags: 0
