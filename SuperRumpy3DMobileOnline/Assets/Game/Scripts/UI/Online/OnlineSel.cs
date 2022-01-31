@@ -22,7 +22,6 @@ public class OnlineSel : MonoBehaviour
     public static float res = 0.5f;
     private void Start()
     {
-        Screen.SetResolution((int)(Screen.width * res), (int)(Screen.height * res), false);
         Screen.SetResolution((int)(Screen.width * res), (int)(Screen.height * res), true);
 
         Sel.SetActive(true);

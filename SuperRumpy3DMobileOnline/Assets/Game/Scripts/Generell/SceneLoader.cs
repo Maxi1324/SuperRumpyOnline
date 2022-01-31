@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
 namespace Generell
 {
@@ -12,6 +13,7 @@ namespace Generell
         public Canvas canvas;
         public Transform LoadingBar;
         public GameObject LoadingUeberOb;
+        public PhotonView PView;
 
         private AsyncOperation operation;
 
@@ -52,15 +54,27 @@ namespace Generell
             TransitionAnimator.SetBool("TransitionBack", false);
         }
 
-        public static void loadScene(string Scene, Action AfterSceneLoad, bool waitforAnimation = true)
+        public static void loadScene(string Scene, Action AfterSceneLoad, bool waitforAnimation = true, bool onlineSync = true)
         {
+            waitforAnimation = false;
             Instance.AfterLoaded = AfterSceneLoad;
             if (Instance.operation == null || Instance.operation.progress > 0.8f)
             {
-                Instance.SC(Scene, waitforAnimation);
+                if (onlineSync)
+                {
+                    Instance.startRPC(Scene, waitforAnimation);
+                }
+                else
+                {
+                    Instance.SC(Scene, waitforAnimation);
+                }
             }
         }
 
+        public void startRPC(string scene, bool WatiAnim)
+        {
+            PView.RPC("SC", RpcTarget.All, scene, WatiAnim);
+        }
 
         public static void Transition(bool Fadein, Action AfterSceneLoad)
         {
@@ -85,12 +99,11 @@ namespace Generell
             Hallo();
         }
 
+        [PunRPC]
         private void SC (string scene, bool WatiAnim)
         {
             StartCoroutine(WaitForLoading(scene, WatiAnim));
         }
-
-
 
         IEnumerator WaitForLoading(string Scene, bool WaitAnim)
         {

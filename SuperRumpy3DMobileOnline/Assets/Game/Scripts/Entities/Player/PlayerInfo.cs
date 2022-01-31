@@ -9,6 +9,7 @@ namespace Entity.Player
     {
         public int ControllerNum = 0;
         public int PlayerNum = 0;
+        public int ActorNumber = 0;
         public PlayerSkin Skin = 0;
         public string XAxis = "Horizontal";
         public string YAxis = "Vertical";
@@ -37,7 +38,7 @@ namespace Entity.Player
         public GameObject DieParikel;
         public Transform PHandTransform;
         public List<GameObject> PlayerSkins;
-
+        public MobileControls MobileControls1;
         public float MaxSpeed = 100;
 
         public object Client { get; internal set; }
@@ -47,6 +48,10 @@ namespace Entity.Player
             NewInfo.Camera = Camera;
         }
 
+        private void Start()
+        {
+            MobileControls1 = FindObjectOfType<MobileControls>();
+        }
         private void Reset()
         {
             Rb = GetComponent<Rigidbody>();

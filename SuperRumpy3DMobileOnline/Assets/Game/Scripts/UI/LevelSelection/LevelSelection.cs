@@ -4,6 +4,8 @@ using UnityEngine;
 using Cinemachine;
 using Generell;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using TMPro;
 
 public class LevelSelection : MonoBehaviour
 {
@@ -15,22 +17,48 @@ public class LevelSelection : MonoBehaviour
 
     public List<string> LeveNames;
 
+    public LevelSelectionRPC RPC;
+
+    public Button Left;
+    public Button Right;
+    public Button StartButton;
+
+    public GameObject Message;
+    public TextMeshProUGUI MessageText;
+
+    public GameObject NotMasterClient;
+
     bool wasDown = true;
     bool load = false;
 
     private void Start()
     {
         var dolly = cam.GetCinemachineComponent<CinemachineTrackedDolly>();
-        dolly.m_PathPosition = PlayerPrefs.GetInt("Level");
         PlayerPrefs.SetInt("FirstTime", 1);
+        if (Photon.Pun.PhotonNetwork.IsMasterClient)
+        {
+            NotMasterClient.SetActive(false);
+        }
+        else
+        {
+            Left.interactable = false;
+            Right.interactable = false;
+            StartButton.interactable = false;
+            NotMasterClient.SetActive(true);
+        }
+    }
+
+    public void SetPathPosition(int pos)
+    {
+        var dolly = cam.GetCinemachineComponent<CinemachineTrackedDolly>();
+        dolly.m_PathPosition = pos;
     }
 
     private void Update()
     {
-
         if (Input.GetButtonDown("Jump"))
         {
-            Load();
+            //Load();
         }
         float xAxis = Input.GetAxis("Horizontal");
         if (xAxis == 0)
@@ -47,7 +75,7 @@ public class LevelSelection : MonoBehaviour
 
     public void Load()
     {
-        if (load) return;
+        if (load || !Photon.Pun.PhotonNetwork.IsMasterClient) return;
         load = true;
         var dolly = cam.GetCinemachineComponent<CinemachineTrackedDolly>();
         if (dolly.m_PathPosition == 3)
@@ -66,14 +94,32 @@ public class LevelSelection : MonoBehaviour
         var dolly = cam.GetCinemachineComponent<CinemachineTrackedDolly>();
             dolly.m_PathPosition += dir;
 
-        if (dolly.m_PathPosition > PlayerPrefs.GetInt("Level"))
+        if (Photon.Pun.PhotonNetwork.IsMasterClient)
         {
-            dolly.m_PathPosition = 0;
+            if (dolly.m_PathPosition > PlayerPrefs.GetInt("Level"))
+            {
+                dolly.m_PathPosition = 0;
+            }
+            if (dolly.m_PathPosition < 0)
+            {
+                dolly.m_PathPosition = PlayerPrefs.GetInt("Level");
+            }
         }
-        if (dolly.m_PathPosition < 0)
-        {
-            dolly.m_PathPosition = PlayerPrefs.GetInt("Level");
-        }
+       
+        RPC.SendPathPosition((int)dolly.m_PathPosition);
         ob.transform.position = obs[(int)dolly.m_PathPosition].transform.position;
     }
+
+    public void showMessage(string str)
+    {
+        Message.SetActive(true);
+        MessageText.text = str;
+    }
+
+    public void closeMessage()
+    {
+        Message.SetActive(false);
+    }
+
+   
 }

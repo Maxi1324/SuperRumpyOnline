@@ -46,7 +46,7 @@ namespace Generell.LevelManager1
                 }
             }
 
-            if (Dead.Count == CharacterSelectionManager.Players.Count)
+            if (Dead.Count == MatchmakingNetworkInstance.OPInfos.Count)
             {  
                 if (!informed)
                 {

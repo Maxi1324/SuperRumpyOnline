@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UI;
+using Photon.Pun;
 
 namespace Entity.Player
 {
@@ -87,6 +88,14 @@ namespace Entity.Player
                     Ab.enabled = false;
                 }
             }
+            if (PhotonNetwork.LocalPlayer.ActorNumber == PInfo.ActorNumber)
+            {
+
+            }
+            else
+            {
+
+            }
         }
 
         private void Reset()
@@ -99,33 +108,42 @@ namespace Entity.Player
         {
             float y = PInfo.Rb.velocity.y;
 
-            added = (PInfo.ControllerNum == 0) ? "" : PInfo.ControllerNum.ToString();
-            XAxis = Input.GetAxis(PInfo.XAxis + added);
-            YAxis = Input.GetAxis(PInfo.YAxis + added);
-            Run = Input.GetButton(PInfo.B + added);
-            JumpPressed = Input.GetButtonDown(PInfo.A + added);
-            Jump = Input.GetButton(PInfo.A + added);
-            Fire3Pressed = Input.GetButtonDown(PInfo.C + added);
-            Fire3 = Input.GetButton(PInfo.C + added);
-            Fire3Up = Input.GetButtonUp(PInfo.C + added);
-            float Bumper1 = Input.GetAxis(PInfo.Bumper + added);
-
-            BumperUp = Mathf.Abs(Bumper1) < 0.1f && !BumperWasDown;
-            BumperDown = (Mathf.Abs(Bumper1) > 0.8f) && BumperWasDown;
-            Bumper = (Mathf.Abs(Bumper1) > 0.8f);
-
-           //Debug.Log($"Bumper:{Bumper} BumperDown:{BumperDown} BumerpUp:{BumperUp}");
-           // Debug.Log(Bumper1);
-
-            if((Mathf.Abs(Bumper1) > 0.8f))
+            if (PhotonNetwork.LocalPlayer.ActorNumber == PInfo.ActorNumber )
             {
-                BumperWasDown = false;
+                added = (PInfo.ControllerNum == 0) ? "" : PInfo.ControllerNum.ToString();
+                XAxis = PInfo.MobileControls1.Joystick.Horizontal;
+                YAxis = PInfo.MobileControls1.Joystick.Vertical;
+                Run = true;
+                JumpPressed = Input.GetButtonDown(PInfo.A + added);
+                Jump = true;
+                Fire3Pressed = Input.GetButtonDown(PInfo.C + added);
+                Fire3 = Input.GetButton(PInfo.C + added);
+                Fire3Up = Input.GetButtonUp(PInfo.C + added);
+                float Bumper1 = Input.GetAxis(PInfo.Bumper + added);
+
+                BumperUp = Mathf.Abs(Bumper1) < 0.1f && !BumperWasDown;
+                BumperDown = (Mathf.Abs(Bumper1) > 0.8f) && BumperWasDown;
+                Bumper = (Mathf.Abs(Bumper1) > 0.8f);
+
+                //Debug.Log($"Bumper:{Bumper} BumperDown:{BumperDown} BumerpUp:{BumperUp}");
+                // Debug.Log(Bumper1);
+
+                if ((Mathf.Abs(Bumper1) > 0.8f))
+                {
+                    BumperWasDown = false;
+                }
+                if (Mathf.Abs(Bumper1) < 0.1f)
+                {
+                    BumperWasDown = true;
+                }
+
             }
-            if (Mathf.Abs(Bumper1) < 0.1f)
+            else
             {
-                BumperWasDown = true;
+
             }
 
+            
             Tuple<bool, Vector3> t = checkGround(MaxGroundDis);
             OnGround = t.Item1;
             OnGroundNormal = t.Item2;

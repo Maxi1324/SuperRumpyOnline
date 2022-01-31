@@ -18,7 +18,7 @@ namespace Generell.LevelManager1
 
         public Transform cam;
 
-        public List<UIPlayerInfo> UIPlayerInfo { get; set; } = new List<UIPlayerInfo>();
+        public List<OnlinePlayerInfo> UIPlayerInfo { get; set; } = new List<OnlinePlayerInfo>();
 
         public int Coins;
         public static int Timer;
@@ -34,6 +34,8 @@ namespace Generell.LevelManager1
 
         protected void Start()
         {
+            UIPlayerInfo = MatchmakingNetworkInstance.OPInfos;
+
             startOff = CameraControllerGood.Instance.Offset;
             StartC = GameObject.Find("StartC");
             EndC = GameObject.Find("EndC");
@@ -70,7 +72,6 @@ namespace Generell.LevelManager1
                 StartC.SetActive(false);
             }
             InCutScene = false;
-            UIPlayerInfo = CharacterSelectionManager.Players;
             StartCoroutine(TimerSR());
             InitLevel();
         }
@@ -111,7 +112,7 @@ namespace Generell.LevelManager1
             Man.informed = false;
 
             int i = 0;
-            UIPlayerInfo.ForEach((UIPlayerInfo PlayerInfo) =>
+            UIPlayerInfo.ForEach((OnlinePlayerInfo PlayerInfo) =>
             {
                 SpawnPlayer(PlayerInfo, SpawnPoints[i]);
                 i++;
@@ -120,15 +121,16 @@ namespace Generell.LevelManager1
             cont.FindPlayers();
         }
 
-        private void SpawnPlayer(UIPlayerInfo PlayerInfo, Transform SpawnPoint)
+        private void SpawnPlayer(OnlinePlayerInfo PlayerInfo, Transform SpawnPoint)
         {
             GameObject ob = Instantiate(PlayerPrefab, SpawnPoint.position, SpawnPoint.rotation,null);
             PlayerManager PlayerManager = ob.GetComponent<PlayerManager>();
             PlayerInfo Info = PlayerManager.PInfo;
-            Info.ControllerNum = PlayerInfo.ControllerNum;
-            Info.PlayerNum = PlayerInfo.PlayerNum;
+            Info.ControllerNum = 0;
+            Info.PlayerNum = PlayerInfo.num;
             Info.Skin = PlayerInfo.Skin;
             Info.Camera = cam;
+            Info.ActorNumber = PlayerInfo.ActorNumber;
         }
 
         IEnumerator TimerSR()

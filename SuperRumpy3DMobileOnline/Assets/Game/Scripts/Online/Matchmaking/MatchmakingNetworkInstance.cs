@@ -13,12 +13,19 @@ public class MatchmakingNetworkInstance : MonoBehaviour
 {
     public PhotonView PView;
 
-    public List<OnlinePlayerInfo> OPInfos = new List<OnlinePlayerInfo>();
+    public static List<OnlinePlayerInfo> OPInfos = new List<OnlinePlayerInfo>();
     public Action<int, PlayerSkin, PlayerSkin> OnChangeSkin;
 
     public Action<int, PlayerSkin, PlayerSkin> OnChangeSkinFremd;
+    public Action<int, PlayerSkin, PlayerSkin> OnChangeSkinInit;
+
 
     public bool wasAct;
+
+    private void Start()
+    {
+        OPInfos = new List<OnlinePlayerInfo>();
+    }
 
     public void AddPlayer(PlayerSkin Skin)
     {
@@ -59,6 +66,8 @@ public class MatchmakingNetworkInstance : MonoBehaviour
         for (int i = 0; i < strs.Length - 1; i++)
         {
             OPInfos.Add(new OnlinePlayerInfo(strs[i]));
+        
+
         }
         wasAct = true;
     }
@@ -69,13 +78,13 @@ public class MatchmakingNetworkInstance : MonoBehaviour
         OnlinePlayerInfo OPInfo = new OnlinePlayerInfo(bytes);
         OPInfos.Add(OPInfo);
         OPInfos = new List<OnlinePlayerInfo>(OPInfos.OrderBy(o => o.ActorNumber == PhotonNetwork.LocalPlayer.ActorNumber?0:1));
-        OnChangeSkin(OPInfo.num, OPInfo.Skin, OPInfo.Skin);
+        OnChangeSkinFremd(OPInfo.num, OPInfo.Skin, OPInfo.Skin);
+        //OnChangeSkinInit(OPInfo.num, OPInfo.Skin, OPInfo.Skin);
     }
 
     [PunRPC]
     public void ChangeSkin(int PNum, PlayerSkin Skin1)
     {
-        
         OnlinePlayerInfo oldOPI = OPInfos.First(o => o.num == PNum);
         OPInfos[OPInfos.IndexOf(oldOPI)] = oldOPI.changeSkin(Skin1);
 
@@ -113,6 +122,8 @@ public struct OnlinePlayerInfo
         num = int.Parse(strs[1]);
         Skin = (PlayerSkin)int.Parse(strs[2]);
         ActorNumber = int.Parse(strs[3]);
+
+
     }
 
     public OnlinePlayerInfo(byte[] fromBytes)

@@ -241,6 +241,7 @@ GameObject:
   - component: {fileID: 3035889682447541286}
   - component: {fileID: 3035889682447541282}
   - component: {fileID: 3035889682447541283}
+  - component: {fileID: 278570677}
   m_Layer: 5
   m_Name: Rumpy
   m_TagString: Untagged
@@ -366,6 +367,29 @@ MonoBehaviour:
   canvas: {fileID: 3035889682765957723}
   LoadingBar: {fileID: 3035889682156380016}
   LoadingUeberOb: {fileID: 3035889682539573005}
+  PView: {fileID: 278570677}
+--- !u!114 &278570677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3035889682447541284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &3035889682539573005
 GameObject:
   m_ObjectHideFlags: 0

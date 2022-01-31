@@ -8,6 +8,8 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Linq;
 using TMPro;
+using Generell;
+using Photon.Pun;
 
 public class OnlineCharacterSelection : MonoBehaviour
 {
@@ -24,21 +26,37 @@ public class OnlineCharacterSelection : MonoBehaviour
 
     private bool addPlayer;
 
+    public GameObject Message;
+    public TextMeshProUGUI MessageText;
+
+    public GameObject cantstart;
+
+    public Sprite defaultBack;
+
     private void Start()
     {
         if (!Photon.Pun.PhotonNetwork.IsConnected)
         {
             SceneManager.LoadScene("Online");
         }
+        PhotonNetwork.AutomaticallySyncScene = true;
 
         RCP.OnChangeSkin = (num, skin, oldSkin) =>
         {
-            RawImage image = images.First(im => im.texture == Statisten.RenderTextures[(int)oldSkin]);
-            image.texture = Statisten.RenderTextures[(int)skin];
+            //RawImage image = images.First(im => im.texture == Statisten.RenderTextures[(int)oldSkin]);
+            //image.texture = Statisten.RenderTextures[(int)skin];
         };
 
         RCP.OnChangeSkinFremd = (num, Skin, oldSkin) =>
         {
+            FreeSkins[(int)oldSkin] = new Tuple<PlayerSkin, bool>(oldSkin, true);
+            FreeSkins[(int)Skin] = new Tuple<PlayerSkin, bool>(Skin, false);
+        };
+
+        RCP.OnChangeSkinInit = (num, Skin, oldSkin) =>
+        {
+            RawImage image = images.First(im => im.texture == defaultBack.texture);
+            image.texture = Statisten.RenderTextures[(int)Skin];
             FreeSkins[(int)oldSkin] = new Tuple<PlayerSkin, bool>(oldSkin, true);
             FreeSkins[(int)Skin] = new Tuple<PlayerSkin, bool>(Skin, false);
         };
@@ -52,37 +70,43 @@ public class OnlineCharacterSelection : MonoBehaviour
 
     private void Update()
     {
-        for(int i = 0; i < RCP.OPInfos.Count;i++)
+        for(int i = 0; i < MatchmakingNetworkInstance.OPInfos.Count;i++)
         {
-            OnlinePlayerInfo OPInfo = RCP.OPInfos[i];
+            OnlinePlayerInfo OPInfo = MatchmakingNetworkInstance.OPInfos[i];
             images[i].texture = Statisten.RenderTextures[(int)OPInfo.Skin];
+        }
+        for (int i = 0; i < 4 - MatchmakingNetworkInstance.OPInfos.Count; i++)
+        {
+            images[i+ MatchmakingNetworkInstance.OPInfos.Count].texture = defaultBack.texture;
         }
 
         AktGame.text = "CurrentGame: \""+Photon.Pun.PhotonNetwork.CurrentRoom.Name+"\"";
         Start1.interactable = Photon.Pun.PhotonNetwork.IsMasterClient;
+        cantstart.SetActive(!Photon.Pun.PhotonNetwork.IsMasterClient);
     }
 
     private void LateUpdate()
     {
         if ((RCP.wasAct || Photon.Pun.PhotonNetwork.IsMasterClient) && !addPlayer)
         {
+            Debug.Log("hier132435");
+            addPlayer = true;
             PlayerSkin Skin = PlayerSkin.Rumpy;
             if (!Photon.Pun.PhotonNetwork.IsMasterClient)
             {
                 Skin = changeSkin(Skin, 1);
             }
             RCP.AddPlayer(Skin);
-            addPlayer = true;
         }
     }
 
     public void ChangeSkin(int dir)
     {
-        PlayerSkin skin = changeSkin(RCP.OPInfos[0].Skin, dir);
-        int i = RCP.OPInfos.FindIndex(o => o.ActorNumber == Photon.Pun.PhotonNetwork.LocalPlayer.ActorNumber);
-        OnlinePlayerInfo OPInfo = RCP.OPInfos[i].changeSkin(skin);
-        RCP.OPInfos[0] = OPInfo;
-        RCP.ChangeSkin(RCP.OPInfos[0].Skin);
+        PlayerSkin skin = changeSkin(MatchmakingNetworkInstance.OPInfos[0].Skin, dir);
+        int i = MatchmakingNetworkInstance.OPInfos.FindIndex(o => o.ActorNumber == Photon.Pun.PhotonNetwork.LocalPlayer.ActorNumber);
+        OnlinePlayerInfo OPInfo = MatchmakingNetworkInstance.OPInfos[i].changeSkin(skin);
+        MatchmakingNetworkInstance.OPInfos[0] = OPInfo;
+        RCP.ChangeSkin(MatchmakingNetworkInstance.OPInfos[0].Skin);
     }
 
     public PlayerSkin changeSkin(PlayerSkin Skin, int dir)
@@ -115,5 +139,21 @@ public class OnlineCharacterSelection : MonoBehaviour
     {
         Photon.Pun.PhotonNetwork.Disconnect();
         SceneManager.LoadScene("Online");
+    }
+
+    public void showMessage(string str)
+    {
+        Message.SetActive(true);
+        MessageText.text = str;
+    }
+
+    public void closeMessage()
+    {
+        Message.SetActive(false);
+    }
+
+    public void startGame()
+    {
+        SceneLoader.loadScene(PlayerPrefs.GetInt("FirstTime") == 1 ? "LevelSelection" : "StartScene", ()=> { },false);
     }
 }
