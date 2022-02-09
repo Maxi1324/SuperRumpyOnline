@@ -1,8 +1,7 @@
 # Super Rumpy 3D
 
-This Project is a 3D local Multiplayer Plattformer, made with Unity.
-
-itch.io link: https://maxi1324.itch.io/superrumpy3d
+This Project is a 3D online Multiplayer Plattformer, made with Unity.<br>
+I am currently working on it. <br>It is based on the PC version.
 
 !["RumpyLogo"](imgs/RumpyLogo.png)
 
@@ -13,10 +12,10 @@ itch.io link: https://maxi1324.itch.io/superrumpy3d
 - External Tools
 
 ## Motivation
-This Project was made for School. In School there is a lesson called PRE. There we learn how to Manage Projects. In the course of this, this Project was made.
-
+The original Project was a school Project. This one not. I just want to experiment with online.<br>
+just for fun
 ## Description
-This game is 3D local multiplayer Jump and run. 
+This game is 3D online multiplayer Jump and run. 
 <br>
 <br>
 The Player can walk, run and jump arround.<br> 
@@ -66,12 +65,7 @@ In oder to perform a HighJump, stand still hold the Z(Bumper) Button and Jump
 
 
 # Learnings
-- Project Management(all the documents)
-- Expect that the other developers are dumb.
-- Bigger Teams are more difficult to manage.
-- Do smaller Projects for school!
-- Assess the effort for creating a Project like this.
-- improved Game development Skills
+-Pun2
 
 ![](https://www.youtube.com/embed/TgxoFQkYPAs)
 
@@ -87,3 +81,4 @@ In oder to perform a HighJump, stand still hold the Z(Bumper) Button and Jump
 - Beautiful Progress Bar Free Loadingbars: https://assetstore.unity.com/packages/2d/gui/icons/beautiful-progress-bar-free-194904
 - Clean Vector Icons:https://assetstore.unity.com/packages/2d/gui/icons/clean-vector-icons-132084
 - EasyFPSCounter: https://assetstore.unity.com/packages/tools/integration/easy-fps-counter-130203
+- Pun2
