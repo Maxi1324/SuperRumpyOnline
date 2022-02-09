@@ -1,7 +1,7 @@
-# Super Rumpy 3D
+# Super Rumpy Online
 
 This Project is a 3D online Multiplayer Plattformer, made with Unity.<br>
-I am currently working on it. <br>It is based on the PC version.
+I am currently working on it. <br>It is based on the PC version, Super Rumpy 3D.
 
 !["RumpyLogo"](imgs/RumpyLogo.png)
 
